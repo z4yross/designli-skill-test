@@ -6,11 +6,7 @@ import { ParserService } from './parser/parser.service';
 
 @Controller()
 export class AppController {
-    constructor(
-        private readonly appService: AppService,
-        private readonly parserService: ParserService,
-        // private readonly fileReaderService: FileReaderService,
-    ) {}
+    constructor(private readonly appService: AppService) {}
 
     @Get()
     getHello(): string {
@@ -19,7 +15,9 @@ export class AppController {
 
     @Post('parse')
     async parseEmail(@Body() body: { filePath: string }): Promise<any> {
-        const parsedEmail = await this.parserService.parseEmail(body.filePath);
+        const parsedEmail = await this.appService.getJsonFromEmail(
+            body.filePath,
+        );
         return parsedEmail;
     }
 }

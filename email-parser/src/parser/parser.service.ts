@@ -54,6 +54,12 @@ export class ParserService {
         return contents;
     }
 
+    extractUrlsFromText(text: string): string[] {
+        const urlRegex = /((https?:\/\/)|(www\.))[^\s\n]+/g;
+        const urls = text.match(urlRegex);
+        return urls;
+    }
+
     isJSON(str: string): boolean {
         try {
             JSON.parse(str);
