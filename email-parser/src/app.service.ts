@@ -16,6 +16,9 @@ export class AppService {
     async getJsonFromEmail(mailPathOrUrl: string): Promise<string[]> {
         const mail = await this.parserService.parseEmail(mailPathOrUrl);
         const jsons = await this.fileReaderService.getJsonFromEmail(mail);
+
+        if (jsons.length === 1) return JSON.parse(jsons[0]);
+        
         return jsons;
     }
 }

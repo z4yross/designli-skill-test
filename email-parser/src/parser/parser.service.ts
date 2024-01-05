@@ -53,9 +53,9 @@ export class ParserService {
 
         return contents;
     }
-
+	
     extractUrlsFromText(text: string): string[] {
-        const urlRegex = /((https?:\/\/)|(www\.))[^\s\n]+/g;
+        const urlRegex = /(?:href=3D")?((https?:\/\/|www\.)[^\s\n">]+)/g;
         const urls = text.match(urlRegex);
         return urls;
     }

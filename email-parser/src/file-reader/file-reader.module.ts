@@ -6,5 +6,6 @@ import { DownloaderModule } from 'src/downloader/downloader.module';
 @Module({
     providers: [FileReaderService],
     imports: [ParserModule, DownloaderModule],
+    exports: [FileReaderService],
 })
 export class FileReaderModule {}

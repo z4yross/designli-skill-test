@@ -12,6 +12,8 @@ export class FileReaderService {
     ) {}
 
     private checkIfJsonInAttachments(mail: MailParser.ParsedMail) {
+        if (!mail.attachments || mail.attachments.length === 0) return [];
+
         const JSONAttachments =
             this.parserService.parseBufferedAttachments(mail);
         return JSONAttachments;
@@ -19,6 +21,10 @@ export class FileReaderService {
 
     private async checkIfJsonInWebSite(website: string): Promise<string[]> {
         const urls = this.parserService.extractUrlsFromText(website);
+
+        console.log(urls);
+
+        if (urls === null || urls.length === 0) return [];
 
         const jsons = await Promise.all(
             urls.map(async (url) => {
@@ -30,8 +36,14 @@ export class FileReaderService {
         return jsons;
     }
 
-    private async checkIfJsonInBody(mail: MailParser.ParsedMail): Promise<string[]> {
+    private async checkIfJsonInBody(
+        mail: MailParser.ParsedMail,
+    ): Promise<string[]> {
         const urls = this.parserService.extractUrlsFromText(mail.text);
+
+        console.log(urls);
+
+        if (urls === null || urls.length === 0) return [];
 
         let jsons = [];
 
