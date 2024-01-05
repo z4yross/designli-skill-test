@@ -3,13 +3,13 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule);
 
-  const configService = app.get<ConfigService>(ConfigService);
+    const configService = app.get<ConfigService>(ConfigService);
 
-  const envPort = configService.get('PORT');
-  const port = envPort ? envPort : 3000;
+    const envPort = configService.get('PORT');
+    const port = envPort ? envPort : 3000;
 
-  await app.listen(port);
+    await app.listen(port);
 }
 bootstrap();
