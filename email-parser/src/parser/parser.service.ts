@@ -29,7 +29,7 @@ export class ParserService {
                 file = await this.downloaderService.downloadFile(emailPath);
                 return file;
             } catch (error) {
-                console.error(error);
+                // console.error(error);
                 return null;
             }
         }

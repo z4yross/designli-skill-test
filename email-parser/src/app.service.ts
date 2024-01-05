@@ -9,10 +9,6 @@ export class AppService {
         private readonly fileReaderService: FileReaderService,
     ) {}
 
-    getHello(): string {
-        return 'Hello World!';
-    }
-
     async getJsonFromEmail(mailPathOrUrl: string): Promise<string[]> {
         const mail = await this.parserService.parseEmail(mailPathOrUrl);
         const jsons = await this.fileReaderService.getJsonFromEmail(mail);

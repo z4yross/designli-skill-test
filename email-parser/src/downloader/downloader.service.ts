@@ -8,7 +8,7 @@ export class DownloaderService {
             const text = await res.text();
             return text;
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             return null;
         }
     }
