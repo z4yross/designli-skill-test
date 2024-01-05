@@ -22,8 +22,6 @@ export class FileReaderService {
     private async checkIfJsonInWebSite(website: string): Promise<string[]> {
         const urls = this.parserService.extractUrlsFromText(website);
 
-        console.log(urls);
-
         if (urls === null || urls.length === 0) return [];
 
         const jsons = await Promise.all(
@@ -40,8 +38,6 @@ export class FileReaderService {
         mail: MailParser.ParsedMail,
     ): Promise<string[]> {
         const urls = this.parserService.extractUrlsFromText(mail.text);
-
-        console.log(urls);
 
         if (urls === null || urls.length === 0) return [];
 
