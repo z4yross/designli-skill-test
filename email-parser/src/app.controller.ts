@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+
 import { FileReaderService } from './file-reader/file-reader.service';
 import { ParserService } from './parser/parser.service';
 
@@ -7,8 +8,8 @@ import { ParserService } from './parser/parser.service';
 export class AppController {
     constructor(
         private readonly appService: AppService,
-        private readonly fileReaderService: FileReaderService,
         private readonly parserService: ParserService,
+        // private readonly fileReaderService: FileReaderService,
     ) {}
 
     @Get()
@@ -17,10 +18,8 @@ export class AppController {
     }
 
     @Post('parse')
-    async parseEmail(@Body() body: { path: string }): Promise<any> {
-        const file = this.fileReaderService.getFile(body.path);
-
-        const parsedEmail = await this.parserService.parseEmail(body.email);
+    async parseEmail(@Body() body: { filePath: string }): Promise<any> {
+        const parsedEmail = await this.parserService.parseEmail(body.filePath);
         return parsedEmail;
     }
 }

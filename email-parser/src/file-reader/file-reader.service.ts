@@ -1,18 +1,32 @@
 import { Injectable } from '@nestjs/common';
 
-import fs from 'fs';
-import path from 'path';
+import * as MailParser from 'mailparser';
+import { ParserService } from 'src/parser/parser.service';
 
 @Injectable()
 export class FileReaderService {
+    constructor(private readonly parserService: ParserService) {}
 
-	getFile(filePath: string): string {
-		try {
-			const file = fs.readFileSync(path.resolve(filePath), 'utf8');
-			return file;
-		} catch (error) {
-			console.error(error);
-			return null;
-		}
-	}
+    checkIfJsonInAttachments(mail: MailParser.ParsedMail) {
+        const JSONAttachments =
+            this.parserService.parseBufferedAttachments(mail);
+        return JSONAttachments;
+    }
+
+    checkIfJsonInWebSite(mail: MailParser.ParsedMail) {}
+
+    checkIfJsonInBody(mail: MailParser.ParsedMail) {}
+
+    getJsonFromEmail(mail: MailParser.ParsedMail) {
+        let jsons = [];
+
+        const JSONAttachments = this.checkIfJsonInAttachments(mail);
+
+        const JSONBody = this.checkIfJsonInBody(mail);
+
+        jsons.push(...JSONAttachments);
+        jsons.push(JSONBody);
+
+        return jsons;
+    }
 }
